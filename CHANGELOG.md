@@ -10,6 +10,8 @@ Changed the non-sensical icons on the menu to something that makes a little more
 
 Added a context option to view the scene artwork as an image, which will allow for a scene image to be shared with players.
 
+Added context menu to pull all active players to either the active scene or the currently viewed scene
+
 # Version 12.01
 
 v12 Compatibility
