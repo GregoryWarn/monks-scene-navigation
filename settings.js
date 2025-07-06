@@ -14,6 +14,12 @@ export const registerSettings = function () {
 		'side': game.i18n.localize("MonksSceneNavigation.scene-size.side"),
 		'none': game.i18n.localize("MonksSceneNavigation.scene-size.none"),
 	};
+
+	let folderOptions = {
+		'none': game.i18n.localize("MonksSceneNavigation.folder-option.none"),
+		'gm': game.i18n.localize("MonksSceneNavigation.folder-option.gm"),
+		'everyone': game.i18n.localize("MonksSceneNavigation.folder-option.everyone")
+	};
 	
 	game.settings.register(modulename, "click-to-view", {
 		name: game.i18n.localize("MonksSceneNavigation.click-to-view.name"),
@@ -59,48 +65,29 @@ export const registerSettings = function () {
 		choices: backbuttonOptions,
 		requiresReload: true
 	});
-	game.settings.register(modulename, "folder-position", {
-		name: game.i18n.localize("MonksSceneNavigation.folder-position.name"),
-		hint: game.i18n.localize("MonksSceneNavigation.folder-position.hint"),
+	game.settings.register(modulename, "navigation-folders", {
+		name: game.i18n.localize("MonksSceneNavigation.navigation-folders.name"),
+		hint: game.i18n.localize("MonksSceneNavigation.navigation-folders.hint"),
 		scope: "world",
 		config: true,
-		default: "back",
-		choices: {
-			'front': game.i18n.localize("MonksSceneNavigation.folder-position.front"),
-			'back': game.i18n.localize("MonksSceneNavigation.folder-position.back"),
-		},
-		type: String
+		default: "gm",
+		type: String,
+		choices: folderOptions,
+		requiresReload: true
 	});
-	game.settings.register(modulename, "player-folders", {
-		name: game.i18n.localize("MonksSceneNavigation.player-folders.name"),
-		hint: game.i18n.localize("MonksSceneNavigation.player-folders.hint"),
-		scope: "world",
-		config: true,
-		default: false,
-		type: Boolean
-	});
-	/*
-	game.settings.register(modulename, "player-scene-directory", {
-		name: game.i18n.localize("MonksSceneNavigation.player-scene-directory.name"),
-        hint: game.i18n.localize("MonksSceneNavigation.player-scene-directory.hint"),
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean
-    });*/
-	game.settings.register(modulename, "display-realname", {
-		name: game.i18n.localize("MonksSceneNavigation.display-realname.name"),
-		hint: game.i18n.localize("MonksSceneNavigation.display-realname.hint"),
+	game.settings.register(modulename, "include-active", {
+		name: game.i18n.localize("MonksSceneNavigation.include-active.name"),
+		hint: game.i18n.localize("MonksSceneNavigation.include-active.hint"),
 		scope: "world",
 		config: true,
 		default: true,
 		type: Boolean,
 		requiresReload: true
 	});
-	game.settings.register(modulename, "display-background", {
-		name: game.i18n.localize("MonksSceneNavigation.display-background.name"),
-		hint: game.i18n.localize("MonksSceneNavigation.display-background.hint"),
-		scope: "client",
+	game.settings.register(modulename, "display-realname", {
+		name: game.i18n.localize("MonksSceneNavigation.display-realname.name"),
+		hint: game.i18n.localize("MonksSceneNavigation.display-realname.hint"),
+		scope: "world",
 		config: true,
 		default: true,
 		type: Boolean,

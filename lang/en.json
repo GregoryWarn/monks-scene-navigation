@@ -1,17 +1,15 @@
 {
   "MonksSceneNavigation.RemoveNav": "Remove Navigation",
   "MonksSceneNavigation.GoBack": "Go back to the previous scene",
+  "MonksSceneNavigation.SetViewPosition": "Set View Position",
+  "MonksSceneNavigation.PullAllPlayers": "Pull All Players to this Scene",
 
   "MonksSceneNavigation.click-to-view.name": "Click to View",
   "MonksSceneNavigation.click-to-view.hint": "Click to view a scene rather than configure it.",
   "MonksSceneNavigation.scene-indicator.name": "Scene Icons",
   "MonksSceneNavigation.scene-indicator.hint": "Add Icons to the Scene Item to show if it's active or if permissions have changed.",
-  "MonksSceneNavigation.folder-position.name": "Scene folders position",
-  "MonksSceneNavigation.folder-position.hint": "Put the Scene folder at the start of the list, or at the back",
-  "MonksSceneNavigation.display-background.name": "Display background",
-  "MonksSceneNavigation.display-background.hint": "Display a background behind the scene list on the scene bar",
-  "MonksSceneNavigation.player-folders.name": "Show folders for players",
-  "MonksSceneNavigation.player-folders.hint": "Usually the number of scenes are small for the player so it's displayed without the folder structure.  Check this if you'd like the players to see the folder structure.",
+  "MonksSceneNavigation.navigation-folders.name": "Show folders on Scene Navigation",
+  "MonksSceneNavigation.navigation-folders.hint": "If you have a lot of scenes in a folder structure, and want to conserve space, turn this on to use folders",
   "MonksSceneNavigation.modify-scene-bar.name": "Modify Scene Bar",
   "MonksSceneNavigation.modify-scene-bar.hint": "Modify the Scene bar with Scene Navigation changes",
   "MonksSceneNavigation.quick-navigation.name": "Quick Navigation toggle",
@@ -32,6 +30,8 @@
   "MonksSceneNavigation.add-back-button.hint": "Add a back button to go back to the previous scene",
   "MonksSceneNavigation.player-scene-directory.name": "Player Scene Directory",
   "MonksSceneNavigation.player-scene-directory.hint": "Display the scene directory for players",
+  "MonksSceneNavigation.include-active.name": "Include Active scenes",
+  "MonksSceneNavigation.include-active.hint": "Include active scenes in the scene navigation list rather than removing them",
 
   "MonksSceneNavigation.backbutton.gm": "GM Only",
   "MonksSceneNavigation.backbutton.everyone": "Everyone",
@@ -42,6 +42,7 @@
   "MonksSceneNavigation.scene-size.side": "Side Icon",
   "MonksSceneNavigation.scene-size.none": "No Image",
 
-  "MonksSceneNavigation.folder-position.front": "Front",
-  "MonksSceneNavigation.folder-position.back": "Back"
+  "MonksSceneNavigation.folder-option.none": "None",
+  "MonksSceneNavigation.folder-option.gm": "GM Only",
+  "MonksSceneNavigation.folder-option.everyone": "Everyone"
 }

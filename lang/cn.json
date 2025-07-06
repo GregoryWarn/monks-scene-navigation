@@ -5,12 +5,6 @@
   "MonksSceneNavigation.click-to-view.hint": "单击以查看场景而非对其进行配置",
   "MonksSceneNavigation.scene-indicator.name": "场景标识",
   "MonksSceneNavigation.scene-indicator.hint": "在场景的物品条目上增添标识来反映该场景是否正处于活跃状态亦或权限是否已更改",
-  "MonksSceneNavigation.folder-position.name": "场景文件夹位置",
-  "MonksSceneNavigation.folder-position.hint": "将场景文件夹置于导航栏列表的前端还是后端",
-  "MonksSceneNavigation.display-background.name": "展示背景",
-  "MonksSceneNavigation.display-background.hint": "在场景按钮后显示背景",
-  "MonksSceneNavigation.player-folders.name": "向玩家展示文件夹",
-  "MonksSceneNavigation.player-folders.hint": "通常，所需展示的场景数量对于玩家来说并不算大，所以默认不会显示文件夹。如果你希望玩家看到场景文件夹的整体结构，请勾选此项",
   "MonksSceneNavigation.modify-scene-bar.name": "调整场景栏",
   "MonksSceneNavigation.modify-scene-bar.hint": "当场景导航栏发生变动时，联动调整场景栏情况",
   "MonksSceneNavigation.quick-navigation.name": "快捷导航切换",
@@ -28,8 +22,5 @@
   "MonksSceneNavigation.directory-background.name": "名称背景",
   "MonksSceneNavigation.directory-background.hint": "为场景栏中的场景名称添加深色背景以提高其可读性",
   "MonksSceneNavigation.add-back-button.name": "返回按钮",
-  "MonksSceneNavigation.add-back-button.hint": "增加一个用来回到之前场景的返回按钮",
-
-  "MonksSceneNavigation.folder-position.front": "前",
-  "MonksSceneNavigation.folder-position.back": "后"
+  "MonksSceneNavigation.add-back-button.hint": "增加一个用来回到之前场景的返回按钮"
 }

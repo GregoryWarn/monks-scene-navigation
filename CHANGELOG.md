@@ -1,3 +1,15 @@
+# Version 13.01
+
+v13 Compatibility
+
+Changed the folder navigation setting to show to no one, the gm only or everyone.  Previously it was just a choice on if the players wanted to see it.
+
+Updated the scene navigation folder tree structure to better support v13 changes.
+
+Changed the non-sensical icons on the menu to something that makes a little more sense, and added an icon for scenes that players are viewing.  And removed icons that were unnecessary and just took up visual space.
+
+Added a context option to view the scene artwork as an image, which will allow for a scene image to be shared with players.
+
 # Version 12.01
 
 v12 Compatibility
