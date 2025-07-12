@@ -1,3 +1,7 @@
+# version 13.02
+
+Fixed issue where previous expand/collapse state was not being remembered
+
 # Version 13.01
 
 v13 Compatibility

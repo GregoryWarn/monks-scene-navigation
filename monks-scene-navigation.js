@@ -137,7 +137,8 @@ Hooks.on("init", () => {
 
 Hooks.on("ready", () => {
     if (setting("minimize-activate")) {
-        ui.nav.toggleExpanded();
+        let expanded = game.user.getFlag("monks-scene-navigation", "expanded") || false;
+        ui.nav.toggleExpanded(expanded);
     }
 })
 
