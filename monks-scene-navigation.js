@@ -233,3 +233,9 @@ Hooks.on("deleteCombat", function (combat) {
         }
     }
 });
+
+Hooks.on("updateScene", function (scene, update, options, userId) {
+    if (update.navigation != undefined) {
+        ui.scenes.render();
+    }
+});

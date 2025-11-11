@@ -5,16 +5,9 @@ export class MonksNavigation extends CONFIG.ui.nav {
         super(options);
     }
 
-    /*
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            id: "navigation",
-            template: "./modules/monks-scene-navigation/templates/navigation.html",
-            popOut: false,
-            dragDrop: [{ dragSelector: ".scene,.folder", dropSelector: ".scene,.scene-list" }]
-        });
-    }
-    */
+    dragEntity;
+
+    dropTarget;
 
     static DEFAULT_OPTIONS = {
         classes: ["monks-navigation"],
@@ -44,10 +37,7 @@ export class MonksNavigation extends CONFIG.ui.nav {
     }
 
     async _onRender(_context, _options) {
-        await super._onRender(_context, _options);
-
-        const scenes = $(this.element).find('.scene.view:not(.active)');
-        scenes.dblclick(this._onClickScene2.bind(this));
+        this.setCollapseTooltip(`SCENE_NAVIGATION.${this.expanded ? "COLLAPSE" : "EXPAND"}`);
 
         // Set the previous tooltip to empty if no scene is active
         this.setPreviousTooltip(this._lastScene ? `Return to: ${this._lastScene.navName || this._lastScene.name}` : "No previous scene");
@@ -55,6 +45,22 @@ export class MonksNavigation extends CONFIG.ui.nav {
         let canGoBack = setting("add-back-button") == "everyone" || (setting("add-back-button") == "true" && game.user.isGM);
         if (canGoBack)
             $(this.element).addClass("allow-previous");
+
+        if (!game.user.isGM) return;
+
+        // Drag and Drop
+        new foundry.applications.ux.DragDrop.implementation({
+            dragSelector: ".scene,.folder",
+            dropSelector: "#scene-navigation-inactive",
+            callbacks: {
+                dragstart: this.onDragStart.bind(this),
+                dragover: this.onDragOver.bind(this),
+                drop: this.onDragDrop.bind(this)
+            }
+        }).bind(this.element);
+
+        const scenes = $(this.element).find('.scene.view:not(.active)');
+        scenes.dblclick(this._onClickScene2.bind(this));
     }
 
     async _prepareContext(_options) {
@@ -312,6 +318,50 @@ export class MonksNavigation extends CONFIG.ui.nav {
         }
     }
 
+    onDragStart(event) {
+        const target = event.target.closest(".scene,.folder");
+        this.dragEntity = target.dataset.sceneId ? game.scenes.get(target.dataset.sceneId) : game.folders.get(target.dataset.folderId);
+    }
+
+    onDragOver(event) {
+        const target = event.target.closest(".scene,.folder");
+        if (target === this.dropTarget) return;
+
+        // Remove drop target highlight
+        if (this.dropTarget) this.dropTarget.classList.remove("drop-target-before", "drop-target-after");
+        this.dropTarget = target;
+        let entityId = target?.dataset.sceneId || target?.dataset.folderId;
+        if (!target || (entityId === this.dragEntity.id)) return;
+
+        // Add drop target highlight
+        const entity = target.dataset.sceneId ? game.scenes.get(target.dataset.sceneId) : game.folders.get(target.dataset.folderId);
+        if (target.collectionName != entity?.collectionName) return;
+        const dropClass = this.dragEntity.navOrder < entity.navOrder ? "drop-target-after" : "drop-target-before";
+        target.classList.add(dropClass);
+    }
+
+    async onDragDrop(event) {
+        if (this.dropTarget) {
+            this.dropTarget.classList.remove("drop-target-before", "drop-target-after");
+            this.dropTarget = undefined;
+        }
+
+        // Retrieve the drag target Scene
+        const entity = this.dragEntity;
+        this.dragEntity = undefined;
+        if (!entity) return;
+
+        // Retrieve the drop target Scene
+        const li = event.target.closest(".scene,.folder");
+        const target = li?.dataset.sceneId ? game.scenes.get(li?.dataset.sceneId) : game.folders.get(li?.dataset.folderId);
+        if (!target || (target === entity) || !["scenes", "folders"].includes(target.collectionName) || !["scenes", "folders"].includes(entity.collectionName)) return;
+
+        // Sort Scenes on navOrder relative to siblings
+        let usingFolder = setting("navigation-folders") == "everyone" || (setting("navigation-folders") == "gm" && game.user.isGM);
+        const siblings = game.scenes.filter(s => s !== entity && (s.folder?.id === (li?.dataset.sceneId ? target.folder?.id : target.id) || !usingFolder));
+        await entity.sortRelative({ sortKey: "navOrder", target, siblings, updateData: { folder: target.collectionName == "folders" ? target.id : target.folder?.id } });
+    }
+
     static toggleFolder(event, target) {
         let folderId = target.closest(".folder").dataset.folderId;
 
@@ -331,5 +381,21 @@ export class MonksNavigation extends CONFIG.ui.nav {
         updates["navopen" + folderId] = navopen;
 
         game.user.update({ flags: { 'monks-scene-navigation': updates } });
+    }
+
+    setCollapseTooltip(tooltip) {
+        const button = this.element.querySelector("#scene-navigation-expand");
+        if (!button) return;
+        button.dataset.tooltip = tooltip;
+        button.setAttribute("aria-label", game.i18n.localize(tooltip));
+    }
+
+    toggleExpanded(expanded) {
+        expanded ??= !this.expanded;
+        this.element.classList.toggle("expanded", expanded);
+        this.setCollapseTooltip(`SCENE_NAVIGATION.${expanded ? "COLLAPSE" : "EXPAND"}`);
+        Hooks.callAll("collapseSceneNavigation", this, !expanded);
+
+        game.user.setFlag("monks-scene-navigation", "expanded", expanded);
     }
 }

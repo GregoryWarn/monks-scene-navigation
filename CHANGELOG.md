@@ -1,3 +1,9 @@
+# version 13.03
+
+Fixed directory refresh when navigation is toggled.
+
+Fixed drag and drop of scenes and folders in the Scene Navigation
+
 # version 13.02
 
 Fixed issue where previous expand/collapse state was not being remembered
